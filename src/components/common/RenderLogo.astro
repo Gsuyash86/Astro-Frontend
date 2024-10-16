@@ -1,0 +1,30 @@
+---
+const {
+	path,
+	poweredBy,
+	urlDark,
+	url,
+	alt,
+	style,
+	imgClass = '',
+	linkClass = '',
+	h1Class = '',
+	title,
+	isDark,
+	isH1Wrapped,
+} = Astro.props;
+const LogoIcon = (
+	<img
+		loading="lazy"
+		src={isDark && urlDark ? urlDark : url}
+		className={imgClass}
+		style={style || {}}
+		alt={alt || 'Times Now'}
+	/>
+);
+---
+
+<a className={linkClass} to={path} title={title}>
+	{poweredBy && <span>{poweredBy}</span>}
+	{isH1Wrapped ? <h1 className={h1Class}>{LogoIcon}</h1> : LogoIcon}
+</a>

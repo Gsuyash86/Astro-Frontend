@@ -1,0 +1,262 @@
+<>
+	{
+		listing && listing.length > 0 ? (
+			<div className={s.container} key={'Main Listing'}>
+				{listing.map((item, index) => {
+					return (
+						<li
+							key={item.seopath}
+							className={index === 0 && renderCaret() ? s.active_bg_arrow : ''}
+						>
+							<Link
+								isFirstPhase={isFirstPhase}
+								to={getTargetURL({
+									...(item?.overridelink && {
+										overrideString: item?.overridelink || '',
+									}),
+									normalString: `${item?.seopath || ''}`,
+								})}
+								className={`${s.item} ${
+									item.seopath &&
+									((item.seopath.split('/').length == 1 &&
+										item.seopath.split('/')[0] ==
+											NavigationData['activeItemId']) ||
+										(item.seopath.split('/').length == 2 &&
+											item.seopath.split('/')[1] ==
+												NavigationData['activeItemId'] &&
+											NavigationData['sub_sub_category'] === '') ||
+										(item.seopath.split('/').length == 2 &&
+											item.seopath.split('/')[1] ==
+												NavigationData['sub_category']) ||
+										(!item.seopath.includes('asia-cup') &&
+											!item.seopath.includes('t20-world-cup') &&
+											!item.seopath.includes('fifa-world-cup') &&
+											!item.seopath.includes('medal-tally') &&
+											!item.seopath.includes('asian-games') &&
+											!item.seopath.includes('ipl') &&
+											item.seopath.split('/').length == 3 &&
+											NavigationData['sub_category'] &&
+											NavigationData['sub_category'].includes('world-cup')) ||
+										(!item.seopath.includes('asia-cup') &&
+											!item.seopath.includes('t20-world-cup') &&
+											!item.seopath.includes('fifa-world-cup') &&
+											!item.seopath.includes('ipl') &&
+											!item.seopath.includes('world-cup') &&
+											item.seopath.split('/').length == 3 &&
+											NavigationData['sub_category'] &&
+											NavigationData['sub_category'].includes('asian-games')) ||
+										(!item.seopath.includes('ipl') &&
+											!item.seopath.includes('t20-world-cup') &&
+											!item.seopath.includes('fifa-world-cup') &&
+											!item.seopath.includes('world-cup') &&
+											!item.seopath.includes('medal-tally') &&
+											item.seopath.split('/').length == 3 &&
+											NavigationData['sub_category'] &&
+											NavigationData['sub_category'].includes('asia-cup')) ||
+										(!item.seopath.includes('asia-cup') &&
+											!item.seopath.includes('t20-world-cup') &&
+											!item.seopath.includes('fifa-world-cup') &&
+											!item.seopath.includes('medal-tally') &&
+											!item.seopath.includes('world-cup') &&
+											item.seopath.split('/').length == 3 &&
+											NavigationData['sub_category'] &&
+											NavigationData['sub_category'].includes('ipl')) ||
+										(!item.seopath.includes('asia-cup') &&
+											!item.seopath.includes('ipl') &&
+											!item.seopath.includes('medal-tally') &&
+											!item.seopath.includes('fifa-world-cup') &&
+											!item.seopath.includes('world-cup') &&
+											item.seopath.split('/').length == 3 &&
+											NavigationData['sub_category'] &&
+											NavigationData['sub_category'].includes(
+												't20-world-cup'
+											)) ||
+										(!item.seopath.includes('asia-cup') &&
+											!item.seopath.includes('t20-world-cup') &&
+											!item.seopath.includes('world-cup') &&
+											!item.seopath.includes('ipl') &&
+											!item.seopath.includes('medal-tally') &&
+											item.seopath.split('/').length == 3 &&
+											NavigationData['sub_category'] &&
+											NavigationData['sub_category'].includes(
+												'fifa-world-cup'
+											)))
+										? HeaderStyle.active + ' ' + s.active
+										: ''
+								}`}
+								onClick={(event) => {
+									getMSID(
+										item.msid,
+										item.title === 'Featured' ||
+											(item.child && item.child.length > 0)
+											? 'CL'
+											: 'AL'
+									);
+								}}
+								title={item?.title}
+								id={
+									item.seopath &&
+									item.seopath.split('/')[item.seopath.split('/').length - 1]
+								}
+								sqno={i++}
+							>
+								<span itemProp="name">
+									{item.title == 'Featured' ? title : item.title}
+								</span>
+							</Link>
+
+							{item.seopath &&
+							item.seopath.split('/').indexOf(NavigationData['sub_category']) >
+								-1 &&
+							listing2 &&
+							listing2.length > 0 ? (
+								<div
+									className={s.container}
+									style={{
+										position: 'absolute',
+										left: '0px',
+										top: '45px',
+										marginBottom: '15px',
+										right: 0,
+										zIndex: 1,
+										overflow: 'hidden',
+									}}
+									key="Internal Categories Listing"
+									id="navSlide"
+								>
+									<Slider {...settings}>
+										{listing2.map((item) => {
+											return (
+												<div
+													key={item.seopath}
+													attr-category={
+														item.seopath && item.seopath.split('/').length
+													}
+													attr-pop={item.seopath.split('/')[3]}
+													attr-active={NavigationData['sub_sub_category']}
+												>
+													<Link
+														isFirstPhase={isFirstPhase}
+														to={getTargetURL({
+															...(item?.overridelink && {
+																overrideString: item?.overridelink || '',
+															}),
+															normalString: `${item?.seopath || ''}`,
+														})}
+														className={`${s.item} ${
+															item.seopath &&
+															((item.seopath.split('/').length == 2 &&
+																item.seopath.split('/')[1] ==
+																	NavigationData['activeItemId']) ||
+																(item.seopath.split('/').length == 3 &&
+																	item.seopath.split('/')[2] ==
+																		NavigationData['activeItemId']) ||
+																(item.seopath.split('/').length == 4 &&
+																	(item.seopath.split('/')[3] ==
+																		NavigationData['sub_sub_category'] ||
+																		item.seopath.split('/')[3] ==
+																			NavigationData['activeItemId'])))
+																? HeaderStyle.active + ' ' + s.active
+																: ''
+														}`}
+														onClick={(event) => {
+															getMSID(
+																item.msid,
+																item.title === 'Featured' ||
+																	(item.child && item.child.length > 0)
+																	? 'CL'
+																	: 'AL'
+															);
+														}}
+														title={item.seopath}
+														id={
+															item.seopath &&
+															item.seopath.split('/')[
+																item.seopath.split('/').length - 1
+															]
+														}
+														sqno={i++}
+													>
+														{item.title}
+													</Link>
+												</div>
+											);
+										})}
+									</Slider>
+								</div>
+							) : // <ul
+							//   className={s.container}
+							//   style={{
+							//     position: 'absolute',
+							//     left: '0px',
+							//     top: '30px',
+							//     marginBottom: '15px',
+							//     right: 0,
+							//   }}
+							//   key="Internal Categories Listing"
+							// >
+							//   {listing2.map((item) => {
+							//     return (
+							//       <li
+							//         key={item.seopath}
+							//         attr-category={
+							//           item.seopath && item.seopath.split('/').length
+							//         }
+							//         attr-pop={item.seopath.split('/')[3]}
+							//         attr-active={NavigationData['sub_sub_category']}
+							//       >
+							//         <Link
+							//           isFirstPhase={isFirstPhase}
+							//           to={getTargetURL({
+							//             ...(item?.overridelink && {
+							//               overrideString: item?.overridelink || '',
+							//             }),
+							//             normalString: `${item?.seopath || ''}`,
+							//           })}
+							//           className={`${s.item} ${item.seopath &&
+							//             ((item.seopath.split('/').length == 2 &&
+							//               item.seopath.split('/')[1] ==
+							//               NavigationData['activeItemId']) ||
+							//               (item.seopath.split('/').length == 3 &&
+							//                 item.seopath.split('/')[2] ==
+							//                 NavigationData['activeItemId']) ||
+							//               (item.seopath.split('/').length == 4 &&
+							//                 (item.seopath.split('/')[3] ==
+							//                   NavigationData['sub_sub_category'] ||
+							//                   item.seopath.split('/')[3] ==
+							//                   NavigationData['activeItemId'])))
+							//             ? HeaderStyle.active + ' ' + s.active
+							//             : ''
+							//             }`}
+							//           onClick={(event) => {
+							//             getMSID(
+							//               item.msid,
+							//               item.title === 'Featured' ||
+							//                 (item.child && item.child.length > 0)
+							//                 ? 'CL'
+							//                 : 'AL',
+							//             );
+							//           }}
+							//           title={item.seopath}
+							//           id={
+							//             item.seopath &&
+							//             item.seopath.split('/')[
+							//             item.seopath.split('/').length - 1
+							//             ]
+							//           }
+							//           sqno={i++}
+							//         >
+							//           {item.title}
+							//         </Link>
+							//       </li>
+							//     );
+							//   })}
+							// </ul>
+							null}
+						</li>
+					);
+				})}
+			</div>
+		) : null
+	}
+</>

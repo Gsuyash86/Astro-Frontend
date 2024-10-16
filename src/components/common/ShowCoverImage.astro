@@ -1,0 +1,24 @@
+---
+const { data } = Astro.props;
+---
+
+<div
+	id="article-cover-image"
+	class="ShowCoverImage-_z_imagecard-1nlw undefined"
+	style="min-height: 260px"
+>
+	<img
+		src=`https://images.timesdrive.in/thumb/msid-${data?.msid},thumbsize-1790825,width-450,height-254,resizemode-75/${data?.msid}.jpg`
+		data-width="450"
+		data-height="254"
+		width="450"
+		height="254"
+		alt="KTM Adventure 390 R"
+	/>
+	<div class="ShowCoverImage-agency-synp-3hmp"></div>
+	<div class="ShowCoverImage-banner-synp-2McL">
+		<div class="undefined undefined">
+			<p set:html={data?.synopsis} />
+		</div>
+	</div>
+</div>

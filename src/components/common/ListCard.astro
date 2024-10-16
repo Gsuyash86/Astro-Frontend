@@ -1,0 +1,36 @@
+---
+const { data, title } = Astro.props;
+---
+
+<section class="ListCard-list_cardsection-3o2k">
+	<span
+		class="Heading-heading-24YR undefined undefined undefined undefined undefined"
+		><a href="https://localhost:3000/" title="" id="td_heading_Most Popular"
+			>{title}</a
+		>
+	</span>
+	{
+		data.map((item) => (
+			<a href={item?.seopath} title="" id="relatedNewsGA_0">
+				<div class="ListCard-tnn__h-list-2fe7 false">
+					<figure>
+						<figcaption>
+							<p>{item?.title}</p>
+						</figcaption>
+						<div>
+							<img
+								src={`https://images.timesdrive.in/thumb/msid-${item?.msid},thumbsize-100,width-175,height-85,resizemode-75/${item.msid}.jpg`}
+								alt="news"
+								title=""
+								style="
+																object-fit: contain;
+																object-position: center center;
+															"
+							/>
+						</div>
+					</figure>
+				</div>
+			</a>
+		))
+	}
+</section>

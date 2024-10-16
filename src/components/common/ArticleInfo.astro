@@ -1,0 +1,41 @@
+---
+const { title, synopsis, authorDetail, updatedate } = Astro.props;
+import { formatDate } from '../Utils';
+---
+
+<>
+	<div id="artiel-title" class="TitleComponent-HeadingTitle-3oUZ">
+		<h1>{title}</h1>
+	</div>
+	<div id="article-synopsis" class="undefined">
+		<div class="Synopsis-container-39Qq undefined">
+			<h2 class="Synopsis-synopsis-1RQf undefined Synopsis-clampdata-3-FRT4">
+				{synopsis}
+				<span class="Synopsis-clamp-pos-1Voq">Read More</span>
+			</h2>
+		</div>
+	</div>
+	<div id="article-author">
+		<div
+			class="tnn__details-user-profile AuthorDetailWidget-tnn__details-user-profile-3MOv"
+		>
+			<div>
+				<div>
+					<img
+						src=`https://images.timesdrive.in/authorthumb/${authorDetail?.id}.cms?width=70&height=70&hid=1001`
+						alt="author-479251660"
+					/>
+				</div>
+			</div>
+			<div class="AuthorDetailWidget-author_row-3LQF undefined">
+				<a
+					href="https://localhost:3000/author/saptak-bardhan-479251660"
+					title=""><strong><span>{authorDetail?.name}</span></strong></a
+				>
+				<p>
+					{formatDate(new Date(+updatedate))}
+				</p>
+			</div>
+		</div>
+	</div>
+</>

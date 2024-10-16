@@ -1,3 +1,9 @@
+---
+import Article from '../components/mobile/Article.astro';
+import Header from '../components/mobile/Header.astro';
+import '../layout/mobile/Style.css';
+---
+
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
@@ -5,8 +11,26 @@
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>Astro</title>
+		<style>
+			body {
+				background: #101116;
+				padding: 0;
+				margin: 0;
+			}
+			* {
+				padding: 0;
+				margin: 0;
+				list-style: none;
+				box-sizing: border-box;
+				font-size: inherit;
+				text-decoration: none;
+				font-family: 'DM Sans', sans-serif;
+			}
+		</style>
 	</head>
 	<body>
-		<h1>TODO: build the sndwch website</h1>
+		<Header />
+		<Article />
+		<div>This is a astro home page</div>
 	</body>
 </html>

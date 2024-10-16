@@ -1,0 +1,56 @@
+---
+const { data } = Astro.props;
+---
+
+<section class="ExpertReviews-ExpertReview-2wH4">
+	<div class="ExpertReviews-container-3vDT">
+		<div class="ExpertReviews-HeadingRow-2IzP">
+			<span class="ExpertReviews-HeadingTitle-1yt4">You</span>
+			<h2
+				class="Heading-heading-24YR undefined undefined undefined undefined undefined"
+			>
+				You May Also Like
+			</h2>
+		</div>
+		<div class="ExpertReviews-ExpertReviewSlider-3gDX">
+			{
+				data.map((item) => (
+					<div class="ExpertReviews-Item-3rE9">
+						<figure>
+							<a href={`/${item?.seopath}`} title="Nissan Magnite 2024 Review">
+								<div class="ExpertReviews-img-1uSF">
+									<img
+										src={`https://images.timesdrive.in/thumb/msid-${item?.msid},thumbsize-1737791,width-353,height-201,false/${item.msid}.jpg`}
+										width="353"
+										height="201"
+										alt="Times Drive"
+										title=""
+										style="
+                                    object-fit: contain;
+                                    object-position: center center;
+                                "
+									/>
+									<div class="ExpertReviews-video-icon-GJ1c" />
+								</div>
+								<figcaption>
+									<h3>{item?.title}</h3>
+								</figcaption>
+							</a>
+							<div class="ExpertReviews-authors-row-2xRf">
+								<div class="ExpertReviews-authors-name-1PCR">
+									<a
+										href="https://localhost:3000/author/ashish-masih-479251615"
+										title=""
+									>
+										<p>{item?.authors[0]?.name}</p>
+									</a>
+								</div>
+								<i class="ExpertReviews-share-icon-3Q5a">Share</i>
+							</div>
+						</figure>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>
