@@ -14,7 +14,7 @@ const { data } = Astro.props;
 		</div>
 		<div class="ExpertReviews-ExpertReviewSlider-3gDX">
 			{
-				data.map((item) => (
+				data?.map((item) => (
 					<div class="ExpertReviews-Item-3rE9">
 						<figure>
 							<a href={`/${item?.seopath}`} title="Nissan Magnite 2024 Review">

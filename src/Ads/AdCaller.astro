@@ -1,0 +1,68 @@
+---
+const { src, sticky, bgWhite, showAd = true } = Astro.props;
+// const { adCode, size, divId } = src;
+const adCode =
+	'/21806551354/TN_Foodie/desktop/homepage/tn_food_dskt_homepage_atf_728';
+const size = [
+	[728, 90],
+	[970, 90],
+];
+const divId = 'div-gpt-ad-1608665892439-0';
+
+// Log props to verify values
+console.log('Ad Code:', adCode);
+console.log('Ad Size:', size);
+console.log('Div ID:', divId);
+
+const string = `
+  document.addEventListener("DOMContentLoaded", function() {
+    function initAds() {
+      window.googletag = window.googletag || { cmd: [] };
+
+      const adCode = '${adCode}';
+      const size = [${size[0]}, ${size[1]}]; // Ensure size is in the correct format
+      const divId = '${divId}';
+
+      console.log('Initializing Ads with:');
+      console.log('Ad Code:', adCode);
+      console.log('Ad Size:', size);
+      console.log('Div ID:', divId);
+
+      googletag.cmd.push(function () {
+        console.log('Inside the cmd push function');
+        const slot = googletag.defineSlot(adCode, size, divId).addService(googletag.pubads());
+        console.log('Created slot', slot);
+        googletag.pubads().enableSingleRequest();
+        googletag.pubads().collapseEmptyDivs();
+        googletag.enableServices();
+      });
+
+      googletag.cmd.push(function () {
+        googletag.display(divId);
+        console.log('Display called for', divId);
+      });
+
+      // Cleanup function
+      return function cleanup() {
+        googletag.cmd.push(function () {
+          googletag.destroySlots();
+          console.log('Slots destroyed');
+        });
+      };
+    }
+
+    // Initialize ads
+    const cleanupAds = initAds();
+  });
+`;
+---
+
+<div
+	className={`ads-container ${sticky ? 'sticky-ads-section' : ''} ${
+		bgWhite ? 'white-section' : ''
+	}`}
+	id={divId}
+>
+</div>
+
+<script set:html={string}></script>

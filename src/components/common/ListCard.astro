@@ -10,7 +10,7 @@ const { data, title } = Astro.props;
 		>
 	</span>
 	{
-		data.map((item) => (
+		data?.map((item) => (
 			<a href={item?.seopath} title="" id="relatedNewsGA_0">
 				<div class="ListCard-tnn__h-list-2fe7 false">
 					<figure>

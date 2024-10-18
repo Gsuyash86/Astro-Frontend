@@ -1,25 +1,8 @@
-export const SOCIAL_LINKS_ZE = {
-	FB: {
-		link: 'https://www.facebook.com/Timesnow',
-		icon: FbDeskTopIcon,
-		darkIcon: FooterFbDeskTopIcon,
-		id: 'fb-dark-icon',
-	},
-	TW: {
-		link: 'https://twitter.com/timesnow',
-		icon: TwitterDeskTopIcon,
-		darkIcon: FooterTwitterDeskTopIcon,
-		id: 'twitter-dark-icon-new',
-	},
-	// TG: {
-	//   link: 'https://t.me/zoomtvnew',
-	//   icon: TelegramIcon,
-	//   darkIcon: TelegramIconFooter,
-	// },
-	IG: {
-		link: 'https://www.instagram.com/timesnow',
-		icon: InstaIcon,
-		darkIcon: InstaIconFooter,
-		id: 'insta-dark-icon',
-	},
+export const seoDefaultMeta = {
+	title: 'Pickelball Now',
+	description: 'Pickelball Now',
+	keywords: 'Pickelball Now',
 };
+
+export const IMG_OG_DEFAULT = `https://images.pickleballnow.in/photo/msid-151044562/151044562.jpg`; // TODO OG IMAGE STATIC URL FOR CONTENT-COMMERCE
+export const TNN_HEALTH_MSID = 123;

@@ -1,0 +1,176 @@
+---
+import { seoDefaultMeta, IMG_OG_DEFAULT } from '../../constants/index';
+import { removeHtmlTags, getNewImageUrl } from '../../components/Utils';
+import OrgSchema from './schema/Organization';
+import ViewActionSchema from './schema/ViewActionSchema';
+import PersonSchema from './schema/PersonSchema';
+import WebSite from './schema/WebSite';
+const { seoData } = Astro.props;
+const uid = '10538';
+const seoObject = seoData?.seo || {};
+let isNoIndexPage = false;
+if (seoObject?.canonical?.includes('search-result/')) {
+	isNoIndexPage = true;
+}
+console.log('inside the dynamic meta links');
+const seoObjectStatic = seoDefaultMeta;
+const generateTags = (seoObject) => {
+	if (seoObject?.metaTags instanceof Array) {
+		return seoObject.metaTags
+			.map((tagItem) => {
+				const { tagName } = tagItem;
+				const attributes = tagItem?.attributes || [];
+
+				// Create the attributes string
+				const attributeString = attributes
+					.map((item) => `${item.attributeName}="${item.attributeValue}"`)
+					.join(' ');
+
+				// Return the tag as a string
+				return `<${tagName} ${attributeString}></${tagName}>`;
+			})
+			.join('');
+	}
+	return '';
+};
+---
+
+<>
+	<head>
+		<title>
+			{removeHtmlTags(seoObject?.title || seoObjectStatic?.title)}
+		</title>
+		<meta
+			name="description"
+			content={removeHtmlTags(
+				seoObject?.description || seoObjectStatic?.description
+			)}
+		/>
+		{
+			seoObject?.keywords ? (
+				<meta name="keywords" content={seoObject?.keywords} />
+			) : (
+				<meta name="keywords" content={seoObjectStatic?.keywords} />
+			)
+		}
+
+		{isNoIndexPage && <meta name="robots" content="noindex, nofollow" />}
+
+		<meta name="news_keywords" content={seoObject?.keywords} />
+		<meta
+			property="og:title"
+			content={seoObject?.headline
+				? seoObject?.headline
+				: seoObject?.title
+				? seoObject?.title
+				: ''}
+		/>
+		<meta
+			property="og:image"
+			content={seoObject?.msid
+				? getNewImageUrl({
+						msid: seoObject?.msid
+							? seoObject?.msid
+							: seoObject?.leadImage?.msid,
+						imgSize: seoObject?.leadImage?.thumbsize
+							? seoObject?.leadImage?.thumbsize
+							: seoObject?.thumbsize
+							? seoObject?.thumbsize
+							: '',
+						imgWidth: 1280,
+						imgHeight: 720,
+				  })
+				: IMG_OG_DEFAULT}
+		/>
+		<meta property="og:type" content="Article" />
+		<meta property="og:url" content={seoObject?.canonical} />
+		<meta property="og:description" content={seoObject?.description} />
+		<meta property="twitter:url" content={seoObject?.canonical} />
+		<meta
+			property="twitter:title"
+			content={seoObject?.headline
+				? seoObject?.headline
+				: seoObject?.title
+				? seoObject?.title
+				: ''}
+		/>
+		<meta property="twitter:description" content={seoObject.description} />
+
+		<link rel="canonical" href={seoObject?.canonical || ''} />
+		{
+			seoObject?.amphtml && (
+				<link rel="amphtml" href={seoObject?.amphtml || ''} />
+			)
+		}
+		{generateTags(seoObject)}
+		<script
+			type="application/ld+json"
+			set:html={
+				JSON.stringify(OrgSchema),
+			}
+		>   </script>
+
+		{
+			seoObject.seopath && seoObject.seopath !== 'videos' && (
+				<script
+					type="application/ld+json"
+					set:html={
+						  JSON.stringify(WebSite),
+					}
+				/>
+			)
+		}
+
+		<script
+			type="application/ld+json"
+			set:html={
+			JSON.stringify(ViewActionSchema),
+			}
+		></script>
+		{/* )} */}
+		<script
+			type="application/ld+json"
+			set:html={
+				JSON.stringify(PersonSchema),
+			}
+		></script>
+		<script
+        async
+        id="fetchBids"
+        type="text/javascript"
+        set:html={
+          `!function(a9,a,p,s,t,A,g){if(a[a9])return;function q(c,r){a[a9]._Q.push([c,r])}a[a9]={init:function(){q("i",arguments)},fetchBids:function(){q("f",arguments)},setDisplayBids:function(){},targetingKeys:function(){return[]},_Q:[]};A=p.createElement(s);A.async=!0;A.src=t;g=p.getElementsByTagName(s)[0];g.parentNode.insertBefore(A,g)}("apstag",window,document,"script","//c.amazon-adsystem.com/aax2/apstag.js");`,
+        }
+      />
+		{
+			seoObject.schema &&
+				seoObject.schema.length > 0 &&
+				seoObject.schema.map((item, index) => (
+					<script
+						key={index}
+						type="application/ld+json"
+						set:html={
+							JSON.stringify(item),
+						}
+					/>
+				))
+		}
+        
+		<style>
+			body {
+				background: #101116;
+				padding: 0;
+				margin: 0;
+			}
+			* {
+				padding: 0;
+				margin: 0;
+				list-style: none;
+				box-sizing: border-box;
+				font-size: inherit;
+				text-decoration: none;
+				font-family: 'DM Sans', sans-serif;
+			}
+		</style>
+	</head>
+</>
