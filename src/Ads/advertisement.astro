@@ -1,0 +1,39 @@
+---
+// Define the props for the advertisement component
+const { src, sticky, bgWhite, showAd = false } = Astro.props;
+const { adCode, size, divId } = src;
+
+// Prepare the script for ad initialization
+const script = `
+  if (window.googletag && ${showAd}) {
+    window.googletag.cmd.push(function() {
+      window.googletag
+        .defineSlot('${adCode}', [${size[0]}, ${size[1]}], '${divId}')
+        .addService(window.googletag.pubads());
+      window.googletag.pubads().enableSingleRequest();
+      window.googletag.pubads().collapseEmptyDivs();
+      window.googletag.enableServices();
+    });
+    window.googletag.cmd.push(function() {
+      window.googletag.display('${divId}');
+    });
+
+    // Cleanup function
+    return function cleanup() {
+      window.googletag.cmd.push(function() {
+        window.googletag.destroySlots();
+      });
+    };
+  }
+`;
+---
+
+<div
+	class={`ads-container ${sticky ? 'sticky-ads-section' : ''} ${
+		bgWhite ? 'white-section' : ''
+	}`}
+	id={divId}
+>
+</div>
+
+<script set:html={script}></script>

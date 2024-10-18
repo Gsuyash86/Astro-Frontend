@@ -22,7 +22,7 @@ const { mainData, ads } = Astro.props;
 		authorDetail={mainData?.authors?.[0]}
 		updatedate={mainData?.metainfo?.LastPublishMilliTime?.value}
 	/>
-	{ads?.atf && <AdCaller src={ads.atf} />}
+	{ads?.atf?.adCode && <AdCaller src={ads.atf} />}
 	{mainData?.leadImage ? <ShowCoverImage data={mainData?.leadImage} /> : null}
 	{
 		mainData?.embedData?.map((data) => {
