@@ -4,9 +4,10 @@ const { data } = Astro.props;
 
 <div class="undefined undefined">
 	<iframe
-		src={data?.thumbUrl}
+		src={`https://www.youtube.com/embed/${data?.id}`}
 		title={data?.title}
 		frameborder="0"
 		allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-		allowfullscreen=""></iframe>
+		allowfullscreen>
+	</iframe>
 </div>

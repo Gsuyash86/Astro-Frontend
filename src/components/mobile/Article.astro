@@ -42,8 +42,9 @@ function toPascalCase(str) {
 		mainData?.embedData?.map((data) => {
 			if (data?.photoType?.list?.length)
 				return <ShowCoverImage data={data?.photoType?.list?.[0]} />;
-			else if (data?.youtubeList && !data?.htmlText?.trim()?.length)
+			else if (data?.youtubeList && !data?.htmlText?.trim()?.length) {
 				return <YouTubeEmbbed data={data?.youtubeList} />;
+			}
 			else if (data) return <ArticlePara data={data} mainData={mainData} storyPersonalization={mainData?.storyPersonalization}/>;
 			else return '';
 		})
@@ -62,7 +63,7 @@ function toPascalCase(str) {
 	<BrandCard SuggestedArticles={mainData?.popular_vehicle}/>
 	<ExpertReviews data={mainData?.latest_from} />
 
-	<!-- <DynamicFormLoader
+	<DynamicFormLoader
                   scriptSrc={'https://stgapivelocity-next.tnn.in/generate-js/66fe894f7704fafdc7b109c9/672c6d856cca17ac3925c869?container_id=lms_survey'}
                   formContainerId="lms_survey"
                   model={mainData?.distinctModels?.[0]?.['Model Name']}
@@ -72,6 +73,6 @@ function toPascalCase(str) {
                   )}
                   VehicleType={'bike'}
                   isMobile={true}
-                /> -->
+                />
 	<Footer />
 </div>

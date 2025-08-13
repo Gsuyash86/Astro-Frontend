@@ -11,7 +11,11 @@ export default defineConfig({
   async rewrites() {
     return {
       source: '/:category/(.*)-article-:id',
-      destination: '/articleShow'
+      destination: '/articleShow',
+    },
+    {
+      source: '/favicon.ico',
+      destination: '/favicon.ico'
     };
   }
 });
