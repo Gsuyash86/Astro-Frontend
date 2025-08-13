@@ -12,7 +12,7 @@ let isNoIndexPage = false;
 if (seoObject?.canonical?.includes('search-result/')) {
 	isNoIndexPage = true;
 }
-console.log('inside the dynamic meta links');
+// console.log('inside the dynamic meta links');
 const seoObjectStatic = seoDefaultMeta;
 const generateTags = (seoObject) => {
 	if (seoObject?.metaTags instanceof Array) {

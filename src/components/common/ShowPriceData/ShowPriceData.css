@@ -1,0 +1,83 @@
+.DynamicPrice {
+    width: 100%;
+    border: 1px #494949 solid;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 20px 0;
+  }
+  
+  .DynamicPrice h3 {
+    color: #fff;
+    font-size: 16px;
+    line-height: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .DynamicPrice ul {
+    display: flex;
+    border-bottom: 1px #494949 solid;
+    width: calc(100% + 21px);
+    margin: 10px -10px 10px;
+    padding: 0px 15px;
+  }
+  
+  .DynamicPrice ul li {
+    color: #fff;
+    font-size: 12px;
+    margin-right: 30px;
+    cursor: pointer;
+    padding-bottom: 10px;
+    border-bottom: 5px solid transparent;
+  }
+  
+  .DynamicPrice ul li.active {
+    font-weight: bold;
+    border-bottom: 5px #eb1b2e solid;
+  }
+  
+  .DynamicPrice .Price {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .DynamicPrice .Price .row {
+    width: 100%;
+  }
+  
+  .DynamicPrice .Price .row .Pricerows {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .DynamicPrice .Price .row .Pricerows span {
+    color: #fff;
+    font-weight: bold;
+    font-size: 12px;
+  }
+  
+  .DynamicPrice .Price .row p {
+    padding: 5px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .DynamicPrice .Price .row p a {
+    text-decoration: underline;
+    color: #fff;
+    font-size: 14px;
+    text-transform: capitalize;
+  }
+  
+  .DynamicPrice .Price .row strong {
+    color: #fff;
+    font-size: 14px;
+    display: block;
+    text-align: right;
+    padding: 5px 0;
+    font-weight: normal;
+  }
+  

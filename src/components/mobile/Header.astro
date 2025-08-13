@@ -1,12 +1,14 @@
 ---
-import _isEmpty from 'lodash.isEmpty';
+import HeaderLocation from '../common/HeaderLocation/HeaderLocation.astro';
+import HeaderSearch from '../common/HeaderSearch/HeaderSearch.astro';
 import './Header.css';
 const response = await fetch(
-	'https://stgapi.timesdrive.in/api/getnavigation?msid=ALL&channel=1001'
+	'https://api.timesdrive.in/api/getnavigation?msid=ALL&channel=1001'
 );
 
 const data = await response.json();
 const mainData = data?.response;
+const location = Astro?.cookies?.get('userLocation')?.value?.toLowerCase().replace(/\s+/g, '-') || 'hyderabad';
 ---
 
 <header id="Header-header-VKX9" class="mobile-header">
@@ -50,6 +52,19 @@ const mainData = data?.response;
 								<li>
 									<a href={`/${data.seopath}`}>{data.title}</a>
 									<i style="color: white;">click</i>
+									<ul class="">
+										{data?.child?.map(child=>( 
+											<li class="">
+													<a
+														href={`/${child.seopath}`}
+														title={child?.title}
+														id="td_header_submenu_nav_latest-news"
+														>{child.title}</a>
+													
+												</li>
+										))}
+												 
+											</ul>
 								</li>
 							))
 						}
@@ -80,18 +95,28 @@ const mainData = data?.response;
 				</nav>
 			</div>
 			<div class="Header-HeaderRight-2fwU">
-				<div class="Header-Location-s2N8">
+				<div class="Header-Location-s2N8" id="headerLocation">
 					<i
 						><img
 							src="/assets/icons/svg/Locationsign.svg"
 							alt="LocationIcon"
 						/></i
 					>
-					<p>hyderabad</p>
+					<p>{location || 'Hyderabad'}</p>
 				</div>
+
+				<div id="headerLocationdynamic" style="display: none;">
+					<HeaderLocation />
+				</div>
+
 				<i class="Header-search-icon-3Ys0"
 					><img src="/assets/icons/svg/search.svg" alt="search-icon" /></i
 				>
+
+				<div class="headerSearch" style="display: none;">
+						<HeaderSearch />
+				</div>
+				
 			</div>
 		</div>
 	</div>
@@ -104,6 +129,20 @@ const mainData = data?.response;
 
 		document.querySelector('#close-icon')?.addEventListener('click', () => {
 			document.querySelector('#mobile_drawer').style.removeProperty('left');
+		});
+
+		document.querySelector('.Header-search-icon-3Ys0')?.addEventListener('click', () => {
+			const headerSearch = document.querySelector('.headerSearch');
+			if (headerSearch) {
+				headerSearch.style.display = headerSearch.style.display === 'none' ? 'block' : 'none';
+			}
+		});
+
+		document.querySelector('#headerLocation')?.addEventListener('click', () => {
+			const headerLocation = document.querySelector('#headerLocationdynamic');
+			if (headerLocation) {
+				headerLocation.style.display = headerLocation.style.display === 'none' ? 'block' : 'none';
+			}
 		});
 	</script>
 </header>

@@ -1,0 +1,129 @@
+---
+import './HeaderLocation.css';
+---
+
+<div class="headerLocation">
+	<div class="container">
+		<div class="Input">
+			<p>Select Your City</p>
+			<div id="city-search-container">
+				<input
+					id="city-search-input"
+					type="text"
+					placeholder="Type your city, e.g. Jaipur, New Delhi"
+				/>
+				<ul id="city-suggestions" class="AutoSearch"></ul>
+			</div>
+		</div>
+		<div class={`container`} style={`margin-bottom: 0px`}>
+			<div class="PopularCities">
+				<p>Popular Cities</p>
+				<ul id="popular-city-list">
+					<!--  -->
+				</ul>
+			</div>
+		</div>
+	</div>
+	<script>
+
+		const debounce = (fn, delay) => {
+			let timeoutID;
+			return function (...args) {
+				if (timeoutID) {
+					clearTimeout(timeoutID);
+				}
+				timeoutID = setTimeout(() => {
+					fn(...args);
+				}, delay);
+			};
+		};
+		
+
+		const input = document.getElementById('city-search-input');
+		const list = document.getElementById('city-suggestions');
+		const cityContainer = document.getElementById('city-search-container');
+		const popularList = document.getElementById('popular-city-list');
+
+        const POPULAR_CITIES = [
+			{ name: 'chennai', icon: '/assets/icons/svg/Chennai.svg' },
+			{ name: 'new-delhi', icon: '/assets/icons/svg/Delhi.svg' },
+			{ name: 'noida', icon: '/assets/icons/svg/Noida.svg' },
+			{ name: 'bangalore', icon: '/assets/icons/svg/Banglore.svg' },
+			{ name: 'mumbai', icon: '/assets/icons/svg/Mumbai.svg' },
+			{ name: 'kolkata', icon: '/assets/icons/svg/Kolkata.svg' },
+			{ name: 'hyderabad', icon: '/assets/icons/svg/Hyderabad.svg' },
+			{ name: 'gurugram', icon: '/assets/icons/svg/Gurugram.svg' },
+			{ name: 'pune', icon: '/assets/icons/svg/Gurugram.svg' },
+		];
+
+		function updateUserLocation(city) {
+			document.cookie = `userLocation=${city}; path=/; max-age=31536000`;
+			if(input) input.value = city;
+			if(list) list.innerHTML = '';
+			renderPopularCities(city);
+            document.location.reload();
+		}
+
+		function renderPopularCities(activeCity) {
+			if (!popularList) return;
+			popularList.innerHTML = '';
+			POPULAR_CITIES.forEach(({ name, icon }) => {
+				const li = document.createElement('li');
+                li.setAttribute('data-city', name);
+				li.className = name === activeCity ? 'Active' : '';
+				li.innerHTML = `<img src="${icon}" alt="${name}" /><span>${name.replace(
+					'-',
+					' '
+				)}</span>`;
+				li.addEventListener('click', () => updateUserLocation(name));
+				popularList.appendChild(li);
+			});
+		}
+
+		const fetchCities = debounce(async (text) => {
+			if (!text) {
+				if(list) list.innerHTML = '';
+				return;
+			}
+
+			try {
+				const res = await fetch(
+					`https://api.timesdrive.in/request/vehicle/citysearch?text=${text}&channel=1001`
+				);
+				const data = await res.json();
+				const suggestions = data?.response?.suggestions || [];
+
+				if(list) list.innerHTML = '';
+				suggestions.forEach((city) => {
+					const li = document.createElement('li');
+					li.textContent = city.City;
+					li.addEventListener('click', () =>
+						updateUserLocation(city.City.toLowerCase().replace(/\s+/g, '-'))
+					);
+					list.appendChild(li);
+				});
+			} catch (err) {
+				console.error('City fetch failed:', err);
+				if(list) list.innerHTML = '';
+			}
+		}, 300);
+
+		if (input) {
+			input.addEventListener('input', (e) => fetchCities(e.target.value));
+			input.addEventListener('focus', () => (list.style.display = 'block'));
+			document.addEventListener('click', (e) => {
+				if (!cityContainer.contains(e.target)) list.style.display = 'none';
+			});
+
+			// Initial render from cookie
+			const match = document.cookie.match(/userLocation=([^;]+)/);
+			const activeCity = match?.[1]?.toLowerCase().replace(/\s+/g, '-') || 'hyderabad';
+			renderPopularCities(activeCity);
+		}
+
+        document.querySelector("#popular-city-list")?.addEventListener('click', (e) => {
+			const city = e.target.tagName === 'LI' ? e.target.getAttribute('data-city') : e.target.closest('li').getAttribute('data-city');
+			updateUserLocation(city);
+		});
+	</script>
+</div>

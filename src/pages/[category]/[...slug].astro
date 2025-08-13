@@ -1,15 +1,62 @@
 ---
 import Article from '../../components/mobile/Article.astro';
 import Header from '../../components/mobile/Header.astro';
-// import DynamicMetaLink from '../../helper/seo/DynamicMetaLink.astro';
-import './style.css';
+import DynamicMetaLink from '../../helper/seo/DynamicMetaLink.astro';
+import HowToFaqSchema from '../../helper/seo/schema/HowToFaqSchema'
+import '../../layout/mobile/Style.css';
+
+const segments = Astro.params.slug || "";
+
+const match = segments.match(/-(\d+)(?=\/?$)/);
+const msid = match ? match[1] : null;
+const response = await fetch(
+	`https://api.timesdrive.in/request/articleshow?channel=1001&origin=mobile&msid=${msid}`
+);
+
+const smartFilter = await fetch('https://api.timesdrive.in/request/smart-filter?channel=1001');
+
+const smartFilterData = await smartFilter.json();
+
+const data = await response.json();
+const mainData = data?.response?.sections?.article_show?.data?.[0];
+const articleSchema = data?.response?.sections?.article_show?.data[0];
+const ads =  data?.response?.ads;
 ---
 
 <html lang="en">
-	<!-- <DynamicMetaLink seoData={} /> -->
+	<head>
+		<DynamicMetaLink seoData={articleSchema} />
+		{mainData?.seoschema&&<script
+			type="application/ld+json"
+			set:html={
+				JSON.stringify(HowToFaqSchema(mainData?.seoschema)),
+			}
+		></script>}
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Astro</title>
+		<style>
+			body {
+				background: #101116;
+				padding: 0;
+				margin: 0;
+			}
+			* {
+				padding: 0;
+				margin: 0;
+				list-style: none;
+				box-sizing: border-box;
+				font-size: inherit;
+				text-decoration: none;
+				font-family: 'DM Sans', sans-serif;
+			}
+		</style>
+	</head>
 	<body>
 		<Header />
-		<Article />
+		<Article mainData={mainData} ads={ads}  smartFilter={smartFilterData} />
 		<div>This is a astro home page</div>
 	</body>
 </html>

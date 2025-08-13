@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="21px" viewBox="0 0 20 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 23</title>
+    <defs>
+        <rect id="path-1" x="4" y="0" width="16" height="16" rx="3"></rect>
+    </defs>
+    <g id="Brand-Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="TimesDrive-Brand" transform="translate(-1002, -2106)">
+            <g id="Group-4" transform="translate(160, 2049)">
+                <g id="Frame-480961642" transform="translate(808, 47)">
+                    <g id="Group-38" transform="translate(34, 3)">
+                        <g id="Group-23" transform="translate(0, 7.5)">
+                            <mask id="mask-2" fill="white">
+                                <use xlink:href="#path-1"></use>
+                            </mask>
+                            <rect stroke="#fff" stroke-width="2" x="5" y="1" width="14" height="14" rx="3"></rect>
+                            <path style="fill: #fff;" d="M0,5.14876302 L2.333,5.14876302 L2.33333333,12.3333333 C2.33333333,15.278852 4.721148,17.6666667 7.66666667,17.6666667 L13.441,17.665763 L13.441,19.999763 L6.66666667,20 C2.98476833,20 0,17.0152317 0,13.3333333 L0,5.14876302 Z" id="Combined-Shape" fill="#000000" fill-rule="nonzero"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

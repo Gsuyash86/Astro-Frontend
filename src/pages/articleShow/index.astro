@@ -2,11 +2,11 @@
 import Article from '../../components/mobile/Article.astro';
 import Header from '../../components/mobile/Header.astro';
 import DynamicMetaLink from '../../helper/seo/DynamicMetaLink.astro';
-import './style.css';
+import '../../layout/mobile/Style.css';
 ---
 
 <html lang="en">
-	<DynamicMetaLink seoData={} />
+	<DynamicMetaLink />
 	<body>
 		<Header />
 		<Article />

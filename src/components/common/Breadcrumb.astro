@@ -1,0 +1,77 @@
+---
+const { path } = Astro.props;
+
+
+const baseURL = 'https://www.timesdrive.in';
+const amp = 'amp'; 
+
+const urlPath = path
+const parts = urlPath?.split('/');
+
+let breadcrumbs = [
+  {
+    id: 'home',
+    link: baseURL,
+    label: 'Home',
+  },
+];
+
+if (parts?.length > 1) {
+  breadcrumbs.push({
+    id: parts[0],
+    link: baseURL + parts[0],
+    label: parts[0],
+  });
+}
+
+---
+
+<div class="breadcrumb">
+    <!-- <BreadCrumbSchema data={breadcrumbs} /> -->
+    <ul>
+        { breadcrumbs?.map((item, index)=>{
+        return <>
+        <li>
+           <a href={item.link}>{item.label}</a>
+          </li>
+          <li><span>/</span></li> 
+          </>
+        })}
+    </ul>
+  </div>
+  
+  <style>
+    .breadcrumb {
+      padding: 10px 0;
+      font-size: 14px;
+      font-family: Arial, sans-serif;
+    }
+  
+    .breadcrumb ul {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 0;
+      margin: 0;
+    }
+  
+    .breadcrumb li {
+      display: flex;
+      align-items: center;
+    }
+  
+    .breadcrumb li a {
+      text-decoration: none;
+      color: #ffffff;
+      transition: color 0.3s ease;
+    }
+  
+    .breadcrumb li a:hover {
+      color: #ffffff;
+    }
+  
+    .breadcrumb li span {
+      color: #ffffff;
+    }
+  </style>

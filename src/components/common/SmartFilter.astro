@@ -1,0 +1,117 @@
+---
+import {  getNewImageUrl } from '../../components/Utils';
+const { smartFilter } = Astro.props;
+const category = Astro.params.category || "";
+
+let vehicleType = '';
+  switch (true) {
+    case category === 'bike-news':
+      vehicleType = 'bike';
+      break;
+    case category === 'electric-vehicles':
+      vehicleType = 'ev';
+      break;
+    case category === 'car-news':
+      vehicleType = 'car';
+      break;
+
+    case category === 'bike':
+      vehicleType = 'bike';
+      break;
+
+    case category === 'car':
+      vehicleType = 'car';
+      break;
+
+    default:
+      vehicleType = 'car';
+  }
+  const mainData = smartFilter?.response?.find(( item : any ) =>
+    item?.title?.toLowerCase()?.includes(vehicleType?.toLowerCase()),
+  );
+
+---
+<div class="filter-slider">
+    {mainData?.children?.map((item) => (
+      <div class="filter-item">
+        <a href={item?.overridelink || item?.storyUrl}>
+          <div class="image-wrapper">
+            <img
+              src={getNewImageUrl({
+                msid: item?.msid,
+                imgWidth: 256,
+                imgHeight: 143,
+                isArticleBanner: true,
+                imgSize: item?.thumbsize,
+              })}
+              alt={item?.title || 'Image'}
+            />
+          </div>
+          <p class="filter-title">{item?.title}</p>
+        </a>
+      </div>
+    ))}
+  </div>
+  
+  <style>
+    .filter-slider {
+      display: flex;
+      overflow-x: auto;
+      gap: 1rem;
+      padding: 1rem 0;
+      scrollbar-width: none; /* Firefox */
+    }
+  
+    .filter-slider::-webkit-scrollbar {
+      display: none; /* Chrome, Safari */
+    }
+  
+    .filter-item {
+      flex: 0 0 auto;
+      text-align: center;
+      color: white;
+      font-weight: 600;
+      width: 100px;
+    }
+  
+    .image-wrapper {
+      width: 90px;
+      height: 90px;
+      margin: 0 auto 0.5rem;
+      border-radius: 50%;
+      padding: 3px;
+      background: linear-gradient(135deg, #ff5f6d, #ffc371, #7b2ff7, #00c9ff);
+      background-size: 400% 400%;
+      animation: gradientBorder 8s ease infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  
+    .image-wrapper img {
+      width: 84px;
+      height: 84px;
+      border-radius: 50%;
+      object-fit: cover;
+      background-color: #000;
+    }
+  
+    .filter-title {
+      font-size: 0.85rem;
+      line-height: 1.2;
+      margin-top: 0.3rem;
+      color: #fff;
+    }
+  
+    @keyframes gradientBorder {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+  </style>

@@ -1,0 +1,42 @@
+---
+import { getNewImageUrl } from '../../components/Utils';
+const { scriptSrc , formContainerId, mainData } = Astro.props
+---
+
+<script is:client>
+
+    const scriptElement = document.createElement("script");
+    scriptElement.src = 'https://apivelocitynext.tnn.in/generate-js/66fe894f7704fafdc7b109c9/6710ed1459059e09a93baae4?container_id=lms_survey';
+    scriptElement.type = "text/javascript";
+    scriptElement.async = true;
+    document.head.appendChild(scriptElement);
+  </script>
+
+<strong>
+    Register Your Interest for <br />{' '}
+    {mainData?.distinctModels?.[0]?.['Model Name']}{' '}
+  </strong>
+
+  {mainData?.distinctModels?.[0]?.cutOutThumData?.msid && (
+    <img
+      src={
+        getNewImageUrl({
+          msid: mainData?.distinctModels?.[0]?.cutOutThumData?.msid,
+          imgWidth: 256,
+          imgHeight: 143,
+          isArticleBanner: true,
+        })
+      }
+      alt={
+        mainData?.distinctModels?.[0]?.modelName || 'Default Image'
+      }
+    />
+  )}
+<div id={formContainerId} class="dynamic-form-container"></div>
+
+  
+<style>
+    strong {
+        color:  white;
+    }
+</style>

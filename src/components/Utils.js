@@ -27,7 +27,8 @@ export function removeHtmlTags(strParam) {
 }
 export const DEFAULT_IMAGE_WIDTH = 200;
 export const DEFAULT_IMAGE_HEIGHT = 200;
-export const IMG_DOMAIN = process.env.NEXT_PUBLIC_PHOTO_API;
+export const IMG_DOMAIN = 'https://images.timesdrive.in';
+export const IMG_DEFAULT = 'https://images.timesdrive.in/photo/msid-151000921/151000921.jpg';
 export function getNewImageUrl({
 	msid,
 	imgSize,
@@ -48,13 +49,43 @@ export function getNewImageUrl({
 		imgHeight = DEFAULT_IMAGE_HEIGHT;
 	}
 	const imgResizeMode = resizeMode ? 'resizemode-4' : 'resizemode-3';
-	const imgurl = `${IMG_DOMAIN}/${
-		!isArticleBanner ? 'thumb' : 'photo'
-	}/msid-${msid}${updatedAt ? `,updatedat-${updatedAt}` : ''}${
-		imgSize ? `,thumbsize-${imgSize}` : ''
-	}${imgWidth ? `,width-${imgWidth}` : ''}${
-		imgHeight ? `,height-${imgHeight}` : ''
-	},${imgResizeMode}/${msid}.jpg`;
+	const imgurl = `${IMG_DOMAIN}/${!isArticleBanner ? 'thumb' : 'photo'
+		}/msid-${msid}${updatedAt ? `,updatedat-${updatedAt}` : ''}${imgSize ? `,thumbsize-${imgSize}` : ''
+		}${imgWidth ? `,width-${imgWidth}` : ''}${imgHeight ? `,height-${imgHeight}` : ''
+		},${imgResizeMode}/${msid}.jpg`;
 	// console.log(imgurl,'..........imgurl..........');
 	return imgurl;
 }
+
+
+export const getPriceRange = (data) => {
+	if (!data?.minPrice && !data?.maxPrice) {
+	  return data?.showSeoPrice ?? 'Price not available';
+	}
+  
+	if (data?.minPrice === data?.maxPrice) {
+	  if (data?.maxPrice > 10000000) {
+		return `₹ ${(data?.maxPrice / 10000000).toFixed(2)} Cr`;
+	  }
+	  if (data?.maxPrice > 100000) {
+		return `₹ ${(data?.maxPrice / 100000).toFixed(2)} Lakh`;
+	  }
+	  return `₹ ${Number(data?.maxPrice).toLocaleString()}`;
+	}
+  
+	if (data?.minPrice > 10000000 || data?.maxPrice > 10000000) {
+	  return `₹ ${(data?.minPrice / 10000000).toFixed(2)} - ${(data?.maxPrice / 10000000).toFixed(2)} Cr`;
+	}
+	if (data?.minPrice > 100000 || data?.maxPrice > 100000) {
+	  return `₹ ${(data?.minPrice / 100000).toFixed(2)} - ${(data?.maxPrice / 100000).toFixed(2)} Lakh`;
+	}
+	return `₹ ${Number(data?.minPrice).toLocaleString()} - ${Number(data?.maxPrice).toLocaleString()}`;
+  };
+  
+  export function ensurePathStartsWithSlash(path) {
+	if (!path.startsWith('/')) {
+	  return '/' + path;
+	}
+	return path;
+  }
+  

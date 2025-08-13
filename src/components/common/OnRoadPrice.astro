@@ -1,0 +1,107 @@
+---
+const { data = [] } = Astro.props;
+import {  getNewImageUrl,getPriceRange, } from '../../components/Utils';
+const imageUrl =
+  getNewImageUrl({
+    msid: data?.[0]?.msid,
+    imgWidth: 256,
+    imgHeight: 143,
+    imgSize: data?.thumbsize,
+    isArticleBanner: true,
+    updatedAt: data?.[0]?.updatedAt,
+  }) 
+//   || defaultMSID;
+
+const currentMonth = new Date().toLocaleString('default', { month: 'short' });
+
+
+---
+<div class="onroad-price">
+	{data?.[0]?.seopath ? (
+	  <a href={`/${data?.[0].seopath}`}>
+		<img
+		  src={imageUrl}
+		  alt={data?.modelName || 'Default Image'}
+		  width="256"
+		  height="143"
+		  loading="lazy"
+		/>
+		<div class="onroad-price-info">
+		  <h3>{data?.[0]?.['Model Name']}</h3>
+		  <span>Ex-Showroom Price</span>
+		  <p>{getPriceRange(data?.[0])}</p>
+		  <button>Check {currentMonth} Offer</button>
+		</div>
+	  </a>
+	) : (
+	  <>
+		<img
+		  src={imageUrl}
+		  alt={data?.modelName || 'Default Image'}
+		  width="256"
+		  height="143"
+		  loading="lazy"
+		/>
+		<div class="onroad-price-info">
+		  <h3>{data?.[0]?.['Model Name']}</h3>
+		  <span>Ex-Showroom Price</span>
+		  <p>{getPriceRange(data?.[0])}</p>
+		  <button>Check {currentMonth} Offer</button>
+		</div>
+	  </>
+	)}
+  </div>
+  
+  <style>
+	.onroad-price {
+	  display: flex;
+	  flex-direction: column;
+	  align-items: flex-start;
+	  gap: 1rem;
+	  font-family: sans-serif;
+	  max-width: 300px;
+	  border: 1px solid #ddd;
+	  padding: 1rem;
+	  border-radius: 8px;
+	}
+  
+	.onroad-price img {
+	  border-radius: 6px;
+	  width: 100%;
+	  object-fit: cover;
+	}
+  
+	.onroad-price-info {
+	  padding: 0.5rem 0;
+	}
+  
+	.onroad-price-info h3 {
+	  margin: 0;
+	  font-size: 1.25rem;
+	}
+  
+	.onroad-price-info span {
+	  display: block;
+	  color: #777;
+	  font-size: 0.9rem;
+	  margin: 0.25rem 0;
+	}
+  
+	.onroad-price-info p {
+	  font-weight: bold;
+	  margin: 0.5rem 0;
+	}
+  
+	.onroad-price-info button {
+	  background-color: #007aff;
+	  color: white;
+	  border: none;
+	  padding: 0.5rem 1rem;
+	  border-radius: 6px;
+	  cursor: pointer;
+	}
+  
+	.onroad-price-info button:hover {
+	  background-color: #005bb5;
+	}
+  </style>

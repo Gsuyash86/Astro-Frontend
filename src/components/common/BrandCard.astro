@@ -1,0 +1,111 @@
+---
+const { SuggestedArticles } = Astro.props;
+
+import { getNewImageUrl } from '../../components/Utils';
+
+function getTargetURL({ overrideString, normalString }) {
+  return overrideString || normalString;
+}
+
+function getSlug(type) {
+  return type?.toLowerCase() || '';
+}
+
+function decodeHtml(html) {
+  return html;
+}
+// console.log('3012', SuggestedArticles)
+---
+
+<div class="bike-card-container">
+  {SuggestedArticles?.data?.slice(0, 4).map((item, index) => (
+    <div class="bike-card" key={`${item.msid}_${index}`}>
+      <a
+        href={getTargetURL({
+          overrideString: item?.overridelink || '',
+          normalString: `${item?.seopath}-${getSlug(item?.cmstype)}-${item.msid}`
+        })}
+      >
+        <div class="bike-image-wrapper">
+          <img
+            src={getNewImageUrl({
+              msid: item?.thumbMsid || null,
+              imgSize: item?.imageSize || item?.thumbsize || '',
+              imgWidth: 688,
+              imgHeight: 656,
+              updatedAt: item?.updatedAt || ''
+            })}
+            alt={item?.title || ''}
+            loading="lazy"
+          />
+        </div>
+
+        <div class="bike-info">
+          <h2 class="bike-title">{decodeHtml(item?.title)}</h2>
+          <p class="bike-specs">Petrol | 37 KM/L</p>
+          <p class="bike-subtext">Ex-Showroom Price</p>
+          <p class="bike-price">₹ 1.74 - 2.16 Lakh</p>
+        </div>
+      </a>
+    </div>
+  ))}
+</div>
+
+<style>
+  .bike-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    padding: 1rem;
+    background-color: #1e1f2f; /* Matches dark background */
+  }
+
+  .bike-card {
+    background: #2c2d3c;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    width: 100%;
+    max-width: 400px;
+    color: #fff;
+    font-family: sans-serif;
+  }
+
+  .bike-image-wrapper img {
+    width: 100%;
+    height: auto;
+    border-radius: 0.5rem 0.5rem 0 0;
+  }
+
+  .bike-info {
+    padding: 1rem;
+  }
+
+  .bike-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem;
+  }
+
+  .bike-specs {
+    color: #ccc;
+    font-size: 0.95rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .bike-subtext {
+    font-size: 0.9rem;
+    color: #aaa;
+  }
+
+  .bike-price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 0.25rem;
+    color: #fff;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+</style>

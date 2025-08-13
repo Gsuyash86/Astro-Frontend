@@ -1,5 +1,6 @@
 ---
 const { data, title } = Astro.props;
+import {  getNewImageUrl } from '../../components/Utils';
 ---
 
 <section class="ListCard-list_cardsection-3o2k">
@@ -11,7 +12,7 @@ const { data, title } = Astro.props;
 	</span>
 	{
 		data?.map((item) => (
-			<a href={item?.seopath} title="" id="relatedNewsGA_0">
+			<a href={`${item?.seopath}-article-${item?.msid}`} title="" id="relatedNewsGA_0">
 				<div class="ListCard-tnn__h-list-2fe7 false">
 					<figure>
 						<figcaption>
@@ -19,14 +20,18 @@ const { data, title } = Astro.props;
 						</figcaption>
 						<div>
 							<img
-								src={`https://images.timesdrive.in/thumb/msid-${item?.msid},thumbsize-100,width-175,height-85,resizemode-75/${item.msid}.jpg`}
-								alt="news"
-								title=""
-								style="
-																object-fit: contain;
-																object-position: center center;
-															"
-							/>
+              src={getNewImageUrl({
+                msid: item?.msid || null,
+                imgSize: item?.imageSize || item?.thumbsize || '',
+                imgWidth: 300,
+                imgHeight: 168,
+                updatedAt: item?.updatedAt || ''
+              })}
+              alt={item?.title || ''}
+              width="300"
+              height="168"
+              loading="lazy"
+            />
 						</div>
 					</figure>
 				</div>

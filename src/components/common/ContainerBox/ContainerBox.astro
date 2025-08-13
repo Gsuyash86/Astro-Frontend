@@ -1,0 +1,24 @@
+---
+export interface Props {
+  marginBottom?: number;
+  changeStyle?: string;
+  noGutterSpace?: boolean;
+  children: any;
+}
+
+const {
+  marginBottom = 0,
+  changeStyle = '',
+  noGutterSpace = false,
+  children,
+} = Astro.props;
+---
+
+<link rel="stylesheet" href="./ContainerBox.css" />
+
+<div
+  class={`container ${noGutterSpace ? 'no-gutter' : ''} ${changeStyle}`}
+  style={`margin-bottom: ${marginBottom}px`}
+>
+  {children}
+</div>

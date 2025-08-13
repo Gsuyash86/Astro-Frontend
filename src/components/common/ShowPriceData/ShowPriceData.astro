@@ -1,0 +1,101 @@
+---
+import { getPriceRange } from '../../Utils'; // adjust path
+import './ShowPriceData.css'; // Converted SCSS to plain CSS
+const { data, isAmp = false } = Astro.props;
+const { variantPriceData, similarModels } = data || {};
+
+const hasVariantPriceData = variantPriceData?.data?.length > 0;
+const hasSimilarModelsData = similarModels?.data?.length > 0;
+
+const initialTab = hasVariantPriceData ? 0 : hasSimilarModelsData ? 1 : 0;
+const priceData = initialTab === 0 ? variantPriceData?.data : similarModels?.data;
+---
+
+{(hasVariantPriceData || hasSimilarModelsData) && (
+  <div class="DynamicPrice" data-initial-tab={initialTab}>
+    <h3 id="main-heading">
+      {initialTab === 0
+        ? variantPriceData?.mainHeading
+        : similarModels?.mainHeading}
+    </h3>
+
+    {isAmp && <h3 id="main-heading-2">{similarModels?.mainHeading}</h3>}
+
+    <ul id="dynamic-price">
+      {hasVariantPriceData && (
+        <li class={initialTab === 0 ? 'active' : ''} data-tab="0">
+          Popular Cities
+        </li>
+      )}
+      {hasSimilarModelsData && (
+        <li class={initialTab === 1 ? 'active' : ''} data-tab="1">
+          Similar Brands
+        </li>
+      )}
+    </ul>
+
+    <div id="dynamic-price-change">
+      <div class="Price" id="heading1" data-tab-content="0">
+        <div class="row">
+          <div class="Pricerows">
+            <span>City</span>
+            <span>On-Road Price</span>
+          </div>
+          {variantPriceData?.data?.map((item) => (
+            <p key={item?.seopath}>
+              <a href={`/${item?.seopath}`} style="text-transform: capitalize;">
+                {item?.city}
+              </a>
+              <strong>
+                {getPriceRange({ minPrice: item.totalPrice, maxPrice: item.totalPrice })}
+              </strong>
+            </p>
+          ))}
+        </div>
+      </div>
+
+      <div class="Price" id="heading2" data-tab-content="1" style="display: none;">
+        <div class="row">
+          <div class="Pricerows">
+            <span>Model Name</span>
+            <span>Price</span>
+          </div>
+          {similarModels?.data?.map((item) => (
+            <p key={item?.seopath}>
+              <a href={`/${item?.seopath}`} style="text-transform: capitalize;">
+                {item?.['Model Name']}
+              </a>
+              <strong>{getPriceRange(item)}</strong>
+            </p>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+
+<!-- Client-side tab switch script -->
+<script type="module" client:load>
+  const container = document.querySelector('.DynamicPrice');
+  if (container) {
+    let currentTab = parseInt(container.dataset.initialTab || '0');
+    const tabButtons = container.querySelectorAll('#dynamic-price li');
+    const tabContents = container.querySelectorAll('[data-tab-content]');
+
+    function setTab(index) {
+      currentTab = index;
+      tabButtons.forEach((btn, i) => {
+        btn.classList.toggle('active', i === index);
+      });
+      tabContents.forEach((content, i) => {
+        content.style.display = i === index ? 'block' : 'none';
+      });
+    }
+
+    tabButtons.forEach((btn, i) => {
+      btn.addEventListener('click', () => setTab(i));
+    });
+
+    setTab(currentTab); // initialize
+  }
+</script>

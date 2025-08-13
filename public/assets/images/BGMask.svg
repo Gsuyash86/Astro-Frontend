@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="934px" height="171px" viewBox="0 0 934 171" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Mask</title>
+    <defs>
+        <ellipse id="path-1" cx="459" cy="76.925" rx="459" ry="76.925"></ellipse>
+        <filter x="-1.6%" y="-5.8%" width="103.3%" height="119.5%" filterUnits="objectBoundingBox" id="filter-3">
+            <feOffset dx="0" dy="6" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="4" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.921568627   0 0 0 0 0.105882353   0 0 0 0 0.180392157  0 0 0 0.774939904 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Brand-Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="TimesDrive-Brand-Price" transform="translate(-254, -2275)">
+            <g id="Group-47" transform="translate(0, 1852)">
+                <g id="360-new" transform="translate(160, 2)">
+                    <g id="pexels-cottonbro-4646214" transform="translate(102, 423.575)">
+                        <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <g id="Mask">
+                            <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-1"></use>
+                            <use fill="#2E303C" fill-rule="evenodd" xlink:href="#path-1"></use>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

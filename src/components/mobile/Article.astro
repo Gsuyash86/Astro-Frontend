@@ -8,7 +8,19 @@ import ListCard from '../common/ListCard.astro';
 import ExpertReviews from '../common/ExpertReviews.astro';
 import Footer from '../mobile/Footer.astro';
 import AdCaller from '../../Ads/AdCaller.astro';
-const { mainData, ads } = Astro.props;
+import Breadcrumb from '../common/Breadcrumb.astro';
+import SmartFilter from '../common/SmartFilter.astro';
+import BrandCard from '../common/BrandCard.astro';
+import ShowPriceData from '../common/ShowPriceData/ShowPriceData.astro';
+import DynamicFormLoader from '../common/DynamicFormLoader.astro';
+import MobilePopular from '../common/MobilePopular/MobilePopular.astro';
+const { mainData, ads, smartFilter } = Astro.props;
+function toPascalCase(str) {
+    return str?.toLowerCase() // Convert the string to lowercase
+      ?.replace(/[-_\s.]+(.)?/g, (_, char) => (char ? char?.toUpperCase() : '')) // Capitalize letters after separators
+      ?.replace(/^./, (char) => char.toUpperCase()); // Capitalize the first letter
+  }
+
 ---
 
 <div
@@ -16,7 +28,9 @@ const { mainData, ads } = Astro.props;
 	id="progressBarContainer_0"
 	data-msid="151046547"
 >
-	<ArticleInfo
+   <Breadcrumb path={mainData?.seo?.seopath}/>
+   <SmartFilter smartFilter={smartFilter}/>
+   <ArticleInfo
 		title={mainData?.title}
 		synopsis={mainData?.synopsis}
 		authorDetail={mainData?.authors?.[0]}
@@ -30,18 +44,34 @@ const { mainData, ads } = Astro.props;
 				return <ShowCoverImage data={data?.photoType?.list?.[0]} />;
 			else if (data?.youtubeList && !data?.htmlText?.trim()?.length)
 				return <YouTubeEmbbed data={data?.youtubeList} />;
-			else if (data?.htmlText) return <ArticlePara data={data} />;
+			else if (data) return <ArticlePara data={data} mainData={mainData} storyPersonalization={mainData?.storyPersonalization}/>;
 			else return '';
 		})
 	}
-	<div class="ArticleShowNew-endOfArticle-3eIT">
+	<!-- <div class="ArticleShowNew-endOfArticle-3eIT">
 		<span>End Article</span>
-	</div>
+	</div> -->
+
+	 <ShowPriceData data={mainData?.rhsPriceData} />
 
 	<ListCard
-		title={mainData?.rhs_widget?.title}
-		data={mainData?.rhs_widget?.children}
+		title={"Most Popular"}
+		data={mainData?.editorpicks}
 	/>
+	<MobilePopular vehicleType={mainData?.vehicleType}/>
+	<BrandCard SuggestedArticles={mainData?.popular_vehicle}/>
 	<ExpertReviews data={mainData?.latest_from} />
+
+	<!-- <DynamicFormLoader
+                  scriptSrc={'https://stgapivelocity-next.tnn.in/generate-js/66fe894f7704fafdc7b109c9/672c6d856cca17ac3925c869?container_id=lms_survey'}
+                  formContainerId="lms_survey"
+                  model={mainData?.distinctModels?.[0]?.['Model Name']}
+				  mainData ={mainData}
+                  brandName={toPascalCase(
+                    mainData?.distinctModels?.[0]?.['Brand'],
+                  )}
+                  VehicleType={'bike'}
+                  isMobile={true}
+                /> -->
 	<Footer />
 </div>

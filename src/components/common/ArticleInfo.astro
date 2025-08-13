@@ -9,10 +9,13 @@ import { formatDate } from '../Utils';
 	</div>
 	<div id="article-synopsis" class="undefined">
 		<div class="Synopsis-container-39Qq undefined">
-			<h2 class="Synopsis-synopsis-1RQf undefined Synopsis-clampdata-3-FRT4">
-				{synopsis}
-				<span class="Synopsis-clamp-pos-1Voq">Read More</span>
+			<input type="checkbox" id="toggle-read" class="read-more-toggle" />
+			<h2 class="Synopsis-synopsis-1RQf undefined Synopsis-clampdata-3-FRT4 synopsis">
+				<span class="text">
+					{synopsis}
+				  </span>
 			</h2>
+			<label for="toggle-read" class="toggle-label"></label>
 		</div>
 	</div>
 	<div id="article-author">
@@ -39,3 +42,38 @@ import { formatDate } from '../Utils';
 		</div>
 	</div>
 </>
+<style>
+	.read-more-container {
+  position: relative;
+  max-width: 600px;
+}
+
+.read-more-toggle {
+  display: none;
+}
+
+.synopsis {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* show only 3 lines */
+  -webkit-box-orient: vertical;
+  transition: all 0.3s ease-in-out;
+}
+
+.read-more-toggle:checked ~ .synopsis {
+  -webkit-line-clamp: unset;
+  overflow: visible;
+}
+
+.toggle-label::after {
+  content: "Read More";
+  color: blue;
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 5px;
+}
+
+.read-more-toggle:checked ~ .toggle-label::after {
+  content: "Read Less";
+}
+</style>

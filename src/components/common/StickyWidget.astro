@@ -1,0 +1,72 @@
+---
+// No frontmatter needed if it's static
+const link = '/shorts'; // Replace this with dynamic logic if needed
+---
+
+
+
+<div class="StickyWidget">
+  <a href="/electric-vehicles" class="GreenZone">
+    <img src="/assets/icons/svg/GreenZone.svg" alt="Green Zone" />
+  </a>
+
+  <a href="/search-new-vehicle">
+    <i><img src="/assets/icons/svg/explore.svg" alt="Explore" /></i>
+    Explore
+  </a>
+
+  <a href={link}>
+    <i><img src="/assets/icons/svg/shorts.svg" alt="Shorts" /></i>
+    Shorts
+  </a>
+
+  <a href="/expert-reviews">
+    <i><img src="/assets/icons/svg/reviewsIcon.svg" alt="Reviews" /></i>
+    Reviews
+  </a>
+
+  <!--
+  <a href="/login">
+    <i><img src="/assets/icons/svg/loginIcon.svg" alt="Login" /></i>
+    Login
+  </a>
+  -->
+</div>
+
+<style>
+    .StickyWidget {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #1f202a;
+      display: flex;
+      justify-content: space-around;
+      padding: 0.75rem 0;
+      box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+  
+    .StickyWidget a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: #333;
+      font-size: 0.75rem;
+    }
+  
+    .StickyWidget a i {
+      margin-bottom: 0.25rem;
+    }
+  
+    .StickyWidget a img {
+      width: 24px;
+      height: 24px;
+    }
+  
+    .GreenZone {
+      background: #dfffe0;
+      padding: 0.5rem;
+      border-radius: 50%;
+    }
+  </style>

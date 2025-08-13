@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="13px" height="14px" viewBox="0 0 13 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group</title>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square" stroke-linejoin="round">
+        <g id="ViewAll-Button" transform="translate(-103, -14)" fill-rule="nonzero" stroke="#FFFFFF" stroke-width="2">
+            <g id="Group-24" transform="translate(33, 3)">
+                <g id="arrow-right" transform="translate(68, 8)">
+                    <g id="Group" transform="translate(3.4655, 4.7921)">
+                        <line x1="0" y1="5.35123326" x2="9.01032344" y2="5.45123326" id="Vector"></line>
+                        <polyline id="Vector" points="4.85171262 0 9.70342524 5.19826352 4.85171262 10.396527"></polyline>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

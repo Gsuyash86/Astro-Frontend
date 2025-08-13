@@ -1,0 +1,121 @@
+---
+const { SuggestedArticles } = Astro.props;
+
+import {  getNewImageUrl } from '../../components/Utils';
+
+function getTargetURL({ overrideString, normalString }) {
+  return overrideString || normalString;
+}
+
+function getSlug(type) {
+  return type?.toLowerCase() || '';
+}
+
+function decodeHtml(html) {
+  return html;
+}
+
+function getDuration(item) {
+  return '00:30'; // Replace with actual logic
+}
+
+
+---
+
+<div class="SuggestedArticlesRow">
+  <div class="block_title">
+    {SuggestedArticles?.heading}
+  </div>
+
+  <div class="SuggestedArticles">
+    {SuggestedArticles?.data?.slice(0, 4).map((item, index) => (
+      <div class="card-item" key={`${item.msid}_${index}`}>
+        <a
+          href={getTargetURL({
+            overrideString: item?.overridelink || '',
+            normalString: `${item?.seopath}-${getSlug(item?.cmstype)}-${item.msid}`
+          })}
+          onClick={() => {
+            // Optional: you may implement getMSID logic here using a browser event
+          }}
+        >
+          <div class="card-item_image">
+            <img
+              src={getNewImageUrl({
+                msid: item?.msid || null,
+                imgSize: item?.imageSize || item?.thumbsize || '',
+                imgWidth: 300,
+                imgHeight: 168,
+                updatedAt: item?.updatedAt || ''
+              })}
+              alt={item?.title || ''}
+              width="300"
+              height="168"
+              loading="lazy"
+            />
+
+            {(item.cmstype === 'MEDIAVIDEO' || item.cmstype === 'VIDEOS') && (
+              <p class="duration">
+                {getDuration(item)}
+              </p>
+            )}
+          </div>
+          <p class="card-item_content">
+            {decodeHtml(item.title)}
+          </p>
+        </a>
+      </div>
+    ))}
+  </div>
+</div>
+
+
+<style>
+    .SuggestedArticlesRow {
+      padding: 1rem;
+      border-bottom: 1px solid #ccc;
+    }
+  
+    .block_title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+  
+    .SuggestedArticles {
+      /* display: flex; */
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+  
+    .card-item {
+      /* width: calc(25% - 1rem); */
+      border: 1px solid #eee;
+      padding: 0.5rem;
+      background: #fff;
+    }
+  
+    .card-item_image {
+      position: relative;
+    }
+  
+    .card-item_content {
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      line-height: 1.3;
+      max-height: 2.6rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  
+    .duration {
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      padding: 2px 6px;
+      font-size: 0.8rem;
+      border-radius: 3px;
+    }
+  </style>

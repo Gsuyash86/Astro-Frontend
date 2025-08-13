@@ -1,0 +1,232 @@
+.headerLocation {
+    width: 100%;
+    border-radius: 0px 0px 20px 20px;
+    position: absolute;
+    left: 0;
+    top: 60px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+    background-color: #2e303c;
+    z-index: 99999;
+    padding: 20px;
+  }
+  
+  @media screen and (max-width: 900px) {
+    .headerLocation {
+      overflow: auto;
+      top: 54px;
+      height: 400px;
+    }
+  }
+  
+  .headerLocation .Input {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .headerLocation .Input > p {
+    color: #fff;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.44px;
+    display: block;
+    font-family: 'Georgia', serif;
+    padding-bottom: 20px;
+  }
+  
+  @media screen and (max-width: 900px) {
+    .headerLocation .Input > p {
+      font-size: 18px;
+    }
+  }
+  
+  .headerLocation .Input input[type='text'] {
+    border-radius: 8px;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.26);
+    background-color: #fff;
+    width: 670px;
+    height: 50px;
+    border: 0;
+    appearance: none;
+    outline: none;
+    padding: 0 20px;
+    background-image: url(/assets/icons/svg/searchBlack.svg);
+    background-repeat: no-repeat;
+    background-position: 98%;
+  }
+  
+  @media screen and (max-width: 900px) {
+    .headerLocation .Input input[type='text'] {
+      width: 100%;
+      height: 40px;
+      font-size: 12px;
+    }
+  }
+  
+  .headerLocation .Input .AutoSearch {
+    position: absolute;
+    background: #2e303c;
+    color: #fff;
+    width: 100%;
+    top: 120px;
+    padding: 16px;
+    overflow: auto;
+    max-width: 670px;
+    margin: auto;
+    left: 0;
+    right: 0;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+    display: block;
+    z-index: 99;
+    height: 200px;
+    text-align: left;
+  }
+  
+  .headerLocation .Input .AutoSearch::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  .headerLocation .Input .AutoSearch::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  .headerLocation .Input .AutoSearch::-webkit-scrollbar-thumb {
+    background: #000;
+  }
+  
+  .headerLocation .Input .AutoSearch li {
+    border-bottom: 1px rgba(255, 255, 255, 0.2) solid;
+    padding: 16px 0;
+    font-size: 14px;
+    text-transform: capitalize;
+    cursor: pointer;
+  }
+  
+  .headerLocation .Input .AutoSearch li:first-child {
+    padding-top: 0;
+  }
+  
+  .headerLocation .PopularCities {
+    width: 100%;
+    text-align: center;
+    padding: 30px 0 10px;
+  }
+  
+  @media screen and (max-width: 900px) {
+    .headerLocation .PopularCities {
+      padding: 20px 0 10px;
+    }
+  }
+  
+  .headerLocation .PopularCities p {
+    color: #fff;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.44px;
+    display: block;
+    font-family: 'Georgia', serif;
+  }
+  
+  @media screen and (max-width: 900px) {
+    .headerLocation .PopularCities p {
+      font-size: 18px;
+    }
+  }
+  
+  .headerLocation .PopularCities ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 30px 0;
+  }
+  
+  @media screen and (max-width: 900px) {
+    .headerLocation .PopularCities ul {
+      flex-wrap: wrap;
+      padding: 30px 0 0;
+    }
+  }
+  
+  .headerLocation .PopularCities ul li {
+    opacity: 0.5;
+    cursor: pointer;
+    position: relative;
+    width: 100%;
+  }
+  
+  @media screen and (max-width: 900px) {
+    .headerLocation .PopularCities ul li {
+      width: 33%;
+      margin-bottom: 30px;
+    }
+  }
+  
+  .headerLocation .PopularCities ul li::after {
+    content: "";
+    max-width: 80px;
+    height: 80px;
+    background: #000;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    border-radius: 100px;
+    opacity: 0;
+    right: 0;
+    margin: auto;
+  }
+  
+  @media screen and (max-width: 900px) {
+    .headerLocation .PopularCities ul li::after {
+      left: 8px;
+    }
+  }
+  
+  .headerLocation .PopularCities ul li.Active {
+    opacity: 1;
+  }
+  
+  .headerLocation .PopularCities ul li.Active::after {
+    opacity: 1;
+  }
+  
+  .headerLocation .PopularCities ul li span {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    display: block;
+    text-align: center;
+    padding-top: 14px;
+  }
+  
+  .headerLocation .PopularCities .ViewAll {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -0.32px;
+    font-family: 'Georgia', serif;
+    text-decoration: underline;
+  }
+  
+
+  .container {
+    width: 100%;
+    max-width: 1160px;
+    padding-right: 20px;
+    padding-left: 20px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  
+  .container.no-gutter {
+    padding-right: 0;
+    padding-left: 0;
+  }
+  
+  @media only screen and (max-width: 767px) {
+    .container {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+  }
+  

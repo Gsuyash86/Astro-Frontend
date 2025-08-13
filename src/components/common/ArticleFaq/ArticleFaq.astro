@@ -1,0 +1,29 @@
+---
+import './ArticleFaq.css';
+import ArticleFaqClient from './ArticleFaqClient.jsx';
+
+const { data, mainData } = Astro.props;
+---
+
+<div class="FaqsSection">
+  <div class="FaqsBg">
+    <div class="FaqsRow">
+      <div class="FaqsRowLeft">
+        <div class="Heading">
+          <img src="/assets/icons/svg/faqs.svg" alt="faqs" />
+          <h4 class="heading">People Also Search</h4>
+        </div>
+          <ArticleFaqClient
+            faqs={data?.data}
+            mainData={mainData}
+            widgetID={data?.widgetID}
+            client:load 
+          />
+      </div>
+    </div>
+  </div>
+</div>
+
+<style is:global>
+  @import './ArticleFaq.css';
+</style>

@@ -1,7 +1,23 @@
 ---
-const { data } = Astro.props;
----
+import AdCaller from "../../Ads/AdCaller.astro";
+import ArticleFaq from "./ArticleFaq/ArticleFaq.astro";
+import ListCard from "./ListCard.astro";
+import OnRoadPrice from "./OnRoadPrice.astro";
+import SuggestedArticles from "./SuggestedArticles.astro";
 
+const { data, mainData, storyPersonalization } = Astro.props;
+
+const ads=  data?.ad;
+---
+{data?.SuggestedArticles &&
+<ListCard
+		title={"Also Read"}
+		data={data.SuggestedArticles?.data}
+	/>
+
+}
+
+{/* <SuggestedArticles SuggestedArticles={data.SuggestedArticles}/> */}
 <div
 	id=""
 	class="HtmlParagraph-article-paragraph-2asd article-paragraph"
@@ -9,3 +25,10 @@ const { data } = Astro.props;
 >
 	<p set:html={data?.htmlText} />
 </div>
+{ storyPersonalization && data?.paraLength === 1 && data?.ispara && <ArticleFaq data={storyPersonalization} mainData={mainData} />}
+{ads != undefined && <AdCaller src={ads} />}
+
+{data?.paraLength === 2 && data?.ispara && mainData?.distinctModels && 
+<OnRoadPrice data={mainData?.distinctModels} />
+}
+

@@ -1,0 +1,260 @@
+.FaqsSection {
+	width: 100%;
+	background-color: #101116;
+	border-radius: 8px;
+	overflow: hidden;
+	padding: 1px;
+	background-image: linear-gradient(rgb(201, 56, 227), rgb(73, 65, 251));
+}
+
+.FaqsSection .FaqsBg {
+	background-color: rgba(25, 26, 26, 1);
+	padding: 20px;
+	border-radius: 8px;
+}
+
+@media screen and (max-width: 900px) {
+	.FaqsSection {
+		margin: 0px 15px;
+		width: auto;
+	}
+
+	.FaqsSection .FaqsBg {
+		padding: 15px;
+	}
+}
+
+.FaqsRow {
+	width: 100%;
+	display: flex;
+}
+
+@media screen and (max-width: 900px) {
+	.FaqsRow {
+		display: block;
+	}
+}
+
+.FaqsRowLeft {
+	padding-right: 20px;
+}
+
+@media screen and (max-width: 900px) {
+	.FaqsRowLeft {
+		width: 100%;
+		padding: 0;
+	}
+}
+
+.Faqs {
+	width: 100%;
+	padding: 16px 0;
+}
+
+.Faqs + .Faqs {
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-image: linear-gradient(
+			to right,
+			rgb(200, 55, 226) 0%,
+			rgb(76, 65, 251) 100%
+		)
+		1;
+}
+
+@media screen and (max-width: 900px) {
+	.Faqs {
+		padding: 8px 0;
+	}
+}
+
+.Faqs.active p {
+	display: block;
+}
+
+.Faqs.active span::after {
+	content: '–';
+}
+
+.Faqs span {
+	display: block;
+	color: rgba(255, 255, 255, 1);
+	font-size: 16px;
+	font-weight: 700;
+	line-height: 24px;
+	font-family: 'Georgia', serif;
+	position: relative;
+	cursor: pointer;
+	padding-right: 30px;
+}
+
+@media screen and (max-width: 900px) {
+	.Faqs span {
+		font-size: 16px;
+	}
+}
+
+.Faqs span::after {
+	content: '+';
+	position: absolute;
+	top: 0;
+	right: 5px;
+	font-size: 20px;
+	font-weight: 700;
+	line-height: 24px;
+}
+
+.Faqs p {
+	display: none;
+	color: rgba(255, 255, 255, 1);
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 24px;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	padding-top: 8px;
+}
+
+.FaqsRowRight {
+	width: 300px;
+	height: 250px;
+	border: 1px #3f3f3f solid;
+}
+
+.FaqsRowRight img {
+	width: 100%;
+	cursor: pointer;
+}
+
+@media screen and (max-width: 900px) {
+	.FaqsRowRight {
+		display: none;
+	}
+}
+
+.container {
+	max-width: 1120px;
+	margin: auto;
+}
+
+.Heading {
+	width: 100%;
+	position: relative;
+	padding: 0px 0 13px;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.Heading img {
+	flex: 0 0 27px;
+	width: 27px;
+	height: 16px;
+}
+
+.Heading h4 {
+	background-image: linear-gradient(
+		270deg,
+		rgb(108, 142, 255) 0%,
+		rgb(233, 109, 255) 50%,
+		rgb(108, 142, 255) 100%
+	);
+	background-size: 50% 100%;
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	margin-bottom: 0;
+	font-size: 22px;
+	line-height: 1.2;
+	animation: textAnimation 3.6s cubic-bezier(0.37, 0, 0.63, 1) infinite;
+}
+
+@media screen and (max-width: 900px) {
+	.Heading {
+		padding: 0;
+		margin-bottom: 20px;
+	}
+}
+
+.Heading .HeadingTitle {
+	letter-spacing: -3px;
+	font-size: 90px;
+	position: absolute;
+	top: 0;
+	left: -6px;
+	right: 0;
+	-webkit-text-stroke: 2px #252525;
+	-webkit-text-fill-color: #101116;
+	font-family: 'Sora', sans-serif;
+	font-weight: bold;
+	text-transform: capitalize;
+	z-index: 1;
+	opacity: 0.3;
+}
+
+@media screen and (max-width: 900px) {
+	.Heading .HeadingTitle {
+		font-size: 60px;
+		top: -20px;
+	}
+}
+
+@keyframes textAnimation {
+	100% {
+		background-position: 200% 0;
+	}
+}
+
+.MoreLink {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	box-sizing: border-box;
+	text-decoration: none;
+	font-family: 'DM Sans', sans-serif;
+	width: 110px;
+	height: 30px;
+	border: 1px solid rgba(51, 51, 51, 1);
+	border-radius: 19px;
+	background-color: rgba(35, 37, 37, 1);
+	color: rgba(255, 255, 255, 1);
+	font-size: 12px;
+	line-height: 2;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	margin-top: 18px;
+}
+
+.MoreLink img {
+	width: 25px;
+	height: 22px;
+}
+
+.heading {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	box-sizing: border-box;
+	text-decoration: none;
+	letter-spacing: -0.56px;
+	font-family: Georgia, serif;
+	text-transform: capitalize;
+	font-weight: 700;
+	display: block;
+	background-image: linear-gradient(270deg, #6c8eff, #e96dff 50%, #6c8eff);
+	background-size: 50% 100%;
+	background-repeat: repeat;
+	background-attachment: scroll;
+	background-origin: initial;
+	background-color: initial;
+	background-clip: text;
+	color: transparent;
+	margin-bottom: 0;
+	font-size: 22px;
+	line-height: 1.2;
+	animation: vr59 3.6s cubic-bezier(0.37, 0, 0.63, 1) 0s infinite;
+	background-position-x: 147.271%;
+	background-position-y: 0px;
+}

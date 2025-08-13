@@ -1,0 +1,184 @@
+---
+import './MobilePopular.css';
+const { vehicleType } = Astro.props;
+---
+
+<div class={'MobilePopular'} id="mobilePopular" style="display:none;">
+  <div class={'TopDiv'}></div>
+  <div class={'Top'}>
+    <span style="margin-right:auto;">Deal Of The Day 🔥</span>
+    <div>
+      <span class={'viewall'} id="viewAllBtn">View All</span>
+      <span id="closeBtn" style="margin-left:auto;cursor:pointer;">✖</span>
+    </div>
+  </div>
+
+  <div class={'Row'} style="min-height:200px;" id="popularRow"></div>
+
+  <div class={'swipeButton'} id="swipeButton" style="display:none;">
+    <button>
+      <i><img id="swipeImage" alt="Image" /></i>
+      Slide to unlock offers
+    </button>
+  </div>
+</div>  
+
+<script>
+let vehicleType = 'car';
+const apiUrl = `https://api.timesdrive.in/request/popular-vehicle?origin=mobile&channel=1001&vehicleType=${vehicleType}`;
+import { ensurePathStartsWithSlash, getNewImageUrl, getPriceRange } from "../../Utils";
+
+  const mobilePopular = document.getElementById('mobilePopular');
+  const popularRow = document.getElementById('popularRow');
+  const swipeButton = document.getElementById('swipeButton');
+  const swipeImage = document.getElementById('swipeImage');
+  const closeBtn = document.getElementById('closeBtn');
+  const viewAllBtn = document.getElementById('viewAllBtn');
+
+  const brandModel = JSON.parse(localStorage.getItem('brandModel')) || {};
+  let swipeStartX = null;
+  let isSwiped = false;
+
+  // Close button
+  closeBtn.addEventListener('click', () => {
+    document.cookie = 'mobilePopularClosed=true; path=/; expires=Thu, 01 Jan 2050 00:00:00 UTC';
+    mobilePopular.style.display = 'none';
+  });
+
+  // View all button
+  viewAllBtn.addEventListener('click', () => {
+    if (vehicleType) {
+      window.location.href = `/find-${vehicleType}s`;
+    }
+  });
+
+  // Scroll visibility logic
+  window.addEventListener('scroll', () => {
+    if (document.cookie.includes('mobilePopularClosed=true')) return;
+    const scrollThreshold = document.documentElement.scrollHeight * 0.2;
+    if (window.scrollY > scrollThreshold) {
+      mobilePopular.style.display = 'block';
+    } else {
+      mobilePopular.style.display = 'none';
+    }
+  });
+  // Fetch and render vehicles
+  async function fetchVehicles() {
+
+    popularRow.innerHTML = '';
+    for (let i = 0; i < 3; i++) {
+      popularRow.innerHTML += `
+        <div class="PopularBox" style="opacity:0.5;">
+          <div class="Skeleton"></div>
+          <strong>Loading...</strong>
+          <span>—</span>
+        </div>
+      `;
+    }
+    try {
+      const res = await fetch(apiUrl);
+      const data = await res.json();
+      if (data.status && data.response?.data?.length) {
+        renderVehicles(data.response.data);
+      } else {
+        popularRow.innerHTML = '<p>No popular vehicles found.</p>';
+      }
+    } catch (err) {
+      console.error("Error fetching popular vehicles:", err);
+      popularRow.innerHTML = '<p>Error loading vehicles.</p>';
+    }
+  }
+
+  function renderVehicles(vehicles) {
+    popularRow.innerHTML = '';
+    vehicles.slice(5, 15).forEach(vehicle => {
+      const ratingHtml = (vehicle.rating && vehicle.rating !== "0")
+        ? `<div class="stars">
+            <span>${vehicle.rating}</span>
+            <span><img src="/assets/images/starsFull.svg" alt="star" /></span>
+          </div>`
+        : '';
+
+      popularRow.innerHTML += `
+        <div class="PopularBox">
+          <a href="${vehicle?.seopath ? ensurePathStartsWithSlash(vehicle.seopath) : '#'}">
+            <div class="Popularimg">
+              <img src="${getNewImageUrl({
+                msid: vehicle?.thumbMsid,
+                imgSize: vehicle?.thumbsize,
+                imgWidth: 'auto',
+                imgHeight: 'auto',
+                is1x1Img: true,
+                isArticleBanner: true
+              })}" alt="${vehicle?.modelName || 'Image'}" />
+              ${ratingHtml}
+            </div>
+            <strong>${vehicle?.modelName || ''}</strong>
+            <span>${getPriceRange({ minPrice: vehicle?.minPrice, maxPrice: vehicle?.maxPrice })}</span>
+          </a>
+          <button data-seopath="${vehicle.seopath}" data-type="${vehicle.vehicleType}">Show Interest</button>
+        </div>
+      `;
+    });
+
+    // Add click listeners for "Show Interest"
+    popularRow.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const seopath = btn.getAttribute('data-seopath');
+        const type = btn.getAttribute('data-type');
+        if (seopath) {
+          const [brand, model] = seopath.split('/');
+          if (brand && model) {
+            window.location.href = `/${type}s/register-interest?brand=${brand}&model=${model}`;
+          }
+        }
+      });
+    });
+  }
+
+  // Swipe handling
+  swipeButton.addEventListener('mousedown', e => swipeStartX = e.clientX);
+  swipeButton.addEventListener('touchstart', e => swipeStartX = e.touches[0].clientX);
+
+  swipeButton.addEventListener('mousemove', e => handleSwipeMove(e.clientX));
+  swipeButton.addEventListener('touchmove', e => handleSwipeMove(e.touches[0].clientX));
+
+  swipeButton.addEventListener('mouseup', e => handleSwipeEnd(e.clientX));
+  swipeButton.addEventListener('touchend', e => handleSwipeEnd(e.changedTouches[0].clientX));
+
+  function handleSwipeMove(currentX) {
+    if (isSwiped || swipeStartX === null) return;
+    const diff = Math.min(Math.max(currentX - swipeStartX, 0), 200);
+    swipeButton.querySelector('i').style.transform = `translateX(${diff}px)`;
+  }
+
+  function handleSwipeEnd(currentX) {
+    if (swipeStartX === null) return;
+    const diff = currentX - swipeStartX;
+    if (diff > 150) {
+      isSwiped = true;
+      if (brandModel?.seoPathInterest) {
+        window.location.href = brandModel.seoPathInterest;
+      }
+    } else {
+      swipeButton.querySelector('i').style.transform = 'translateX(0px)';
+    }
+    swipeStartX = null;
+  }
+
+  // Init swipe button if brandModel exists
+  if (brandModel?.imageMsid) {
+    swipeButton.style.display = 'block';
+    swipeImage.src = getNewImageUrl({
+      msid: brandModel.imageMsid,
+      imgSize: brandModel.thumbsize,
+      imgWidth: 'auto',
+      imgHeight: 'auto',
+      is1x1Img: true,
+      isArticleBanner: true
+    });
+    swipeImage.alt = brandModel.modelName || 'Image';
+  }
+
+  fetchVehicles();
+</script>
