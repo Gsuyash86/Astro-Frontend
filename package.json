@@ -15,7 +15,7 @@
 		"@astrojs/sitemap": "^3.4.0",
 		"@astrojs/solid-js": "^5.1.0",
 		"@astrojs/vercel": "^8.2.5",
-		"astro": "^2.5.5",
+		"astro": "^5.12.9",
 		"dayjs": "^1.11.10",
 		"lodash": "^4.17.21",
 		"react": "^19.1.1",
