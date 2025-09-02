@@ -7,6 +7,7 @@ const { data } = Astro.props;
 	class="ShowCoverImage-_z_imagecard-1nlw undefined"
 	style="min-height: 260px"
 >
+	<link rel="preload" href={`https://images.timesdrive.in/thumb/msid-${data?.msid},thumbsize-1790825,width-450,height-254,resizemode-75/${data?.msid}.jpg`} as="image" />
 	<img
 		src=`https://images.timesdrive.in/thumb/msid-${data?.msid},thumbsize-1790825,width-450,height-254,resizemode-75/${data?.msid}.jpg`
 		data-width="450"
@@ -14,6 +15,7 @@ const { data } = Astro.props;
 		width="450"
 		height="254"
 		alt="KTM Adventure 390 R"
+		loading="lazy"
 	/>
 	<div class="ShowCoverImage-agency-synp-3hmp"></div>
 	<div class="ShowCoverImage-banner-synp-2McL">

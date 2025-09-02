@@ -19,7 +19,7 @@ let breadcrumbs = [
 if (parts?.length > 1) {
   breadcrumbs.push({
     id: parts[0],
-    link: baseURL + parts[0],
+    link: `${baseURL}/${parts[0]}`,
     label: parts[0],
   });
 }
@@ -29,13 +29,16 @@ if (parts?.length > 1) {
 <div class="breadcrumb">
     <!-- <BreadCrumbSchema data={breadcrumbs} /> -->
     <ul>
-        { breadcrumbs?.map((item, index)=>{
-        return <>
-        <li>
-           <a href={item.link}>{item.label}</a>
-          </li>
-          <li><span>/</span></li> 
-          </>
+        {breadcrumbs?.map((item, index) => {
+          let lastBreadcrumb = index === breadcrumbs.length - 1;
+          return (
+            <>
+              <li>
+                <a href={item.link}>{item.label.replace(/\b\w/g, c => c.toUpperCase())}</a>
+              </li>
+              {!lastBreadcrumb && <li><span>/</span></li>}
+            </>
+          )
         })}
     </ul>
   </div>

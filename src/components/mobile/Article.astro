@@ -36,8 +36,12 @@ function toPascalCase(str) {
 		authorDetail={mainData?.authors?.[0]}
 		updatedate={mainData?.metainfo?.LastPublishMilliTime?.value}
 	/>
+	<div style="display: flex; align-items:center; justify-content:center; background-color: black; width: 100%; height: 290px;">
 	{ads?.atf?.adCode && <AdCaller src={ads.atf} />}
+	</div>
+	<div style="margin-bottom: 10px;">
 	{mainData?.leadImage ? <ShowCoverImage data={mainData?.leadImage} /> : null}
+	</div>	
 	{
 		mainData?.embedData?.map((data) => {
 			if (data?.photoType?.list?.length)

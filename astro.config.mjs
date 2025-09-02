@@ -15,7 +15,7 @@ export default defineConfig({
     },
     {
       source: '/favicon.ico',
-      destination: '/favicon.ico'
+      destination: '/favicon.svg'
     };
   }
 });

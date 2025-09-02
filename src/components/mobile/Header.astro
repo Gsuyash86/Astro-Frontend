@@ -105,19 +105,16 @@ const location = Astro?.cookies?.get('userLocation')?.value?.toLowerCase().repla
 					<p>{location || 'Hyderabad'}</p>
 				</div>
 
-				<div id="headerLocationdynamic" style="display: none;">
-					<HeaderLocation />
-				</div>
-
 				<i class="Header-search-icon-3Ys0"
 					><img src="/assets/icons/svg/search.svg" alt="search-icon" /></i
 				>
-
-				<div class="headerSearch" style="display: none;">
-						<HeaderSearch />
-				</div>
-				
 			</div>
+			<div id="headerLocationdynamic" style="display: none;">
+				<HeaderLocation />
+			</div>
+			<div class="headerSearch" style="display: none;">
+				<HeaderSearch />
+		</div>
 		</div>
 	</div>
 	<script>

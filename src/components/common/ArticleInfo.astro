@@ -67,12 +67,20 @@ import { formatDate } from '../Utils';
 
 .toggle-label::after {
   content: "Read More";
-  color: blue;
+  color: #FFF;
   cursor: pointer;
   display: inline-block;
   margin-top: 5px;
+  
 }
-
+label.toggle-label {
+    position: absolute;
+    padding-left: 21px !important;
+    cursor: pointer;
+    bottom: 0;
+    right: 18px;
+    background: #101116;
+}
 .read-more-toggle:checked ~ .toggle-label::after {
   content: "Read Less";
 }

@@ -16,6 +16,7 @@ const ads =  data?.response?.ads;
 
 <html lang="en">
 	<head>
+		<link rel="preload" href="/dfpamzn.js" as="script" />
 		<DynamicMetaLink seoData={articleSchema} />
 		{mainData?.seoschema&&<script
 			type="application/ld+json"
@@ -46,8 +47,10 @@ const ads =  data?.response?.ads;
 		</style>
 	</head>
 	<body>
+		<script type="text/javascript" src="/dfpamzn.js"></script>
 		<Header />
 		<Article mainData={mainData} ads={ads}/>
 		<div>This is a astro home page</div>
+		
 	</body>
 </html>
