@@ -9,6 +9,7 @@ const response = await fetch(
 const data = await response.json();
 const mainData = data?.response;
 const location = Astro?.cookies?.get('userLocation')?.value?.toLowerCase().replace(/\s+/g, '-') || 'hyderabad';
+const currentSelectedVehicle = Astro?.cookies?.get('brandModel');
 ---
 
 <header id="Header-header-VKX9" class="mobile-header">
@@ -69,21 +70,26 @@ const location = Astro?.cookies?.get('userLocation')?.value?.toLowerCase().repla
 							))
 						}
 					</ul>
-
-					<div class="Header-ShowInterest-2UxI">
-						<i
-							><img
-								width="auto"
-								height="auto"
-								src="https://images.timesdrive.in/photo/msid-125081630,thumbsize-335230,width-200,height-200,false/125081630.jpg"
-								alt="Royal Enfield Bullet 350"
-							/>
-							<p>Looks like you are searching Royal Enfield Bullet 350?</p></i
-						><a
-							href="https://localhost:3000/cars/register-interest?brand=royal-enfield&model=royal-enfield-royal-enfield-bullet-350"
-							title="">Show Interest</a
-						>
-					</div>
+					{
+						currentSelectedVehicle && (
+							<div>
+								<div class="Header-ShowInterest-2UxI" id="showInterest">
+									<i
+										><img
+											width="auto"
+											height="auto"
+											src="https://images.timesdrive.in/photo/msid-125081630,thumbsize-335230,width-200,height-200,false/125081630.jpg"
+											alt="Royal Enfield Bullet 350"
+										/></i>
+									<p>Looks like you are searching {currentSelectedVehicle?.value}</p>
+								</div>
+								<a
+									href={`${currentSelectedVehicle?.value}`}
+									title="">Show Interest
+								</a>
+							</div>
+						)
+					}
 					<button
 						class="Navigation-navClose-I9r6"
 						on="tap:ampHamburger.toggle"
